@@ -33,7 +33,7 @@ use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\{
 	ByteTag, CompoundTag, FloatTag, IntTag, LongTag, StringTag
 };
-use pocketmine\network\mcpe\protocol\ProtocolInfo;
+use pocketmine\network\protocol\Info;
 use pocketmine\utils\Binary;
 use pocketmine\utils\MainLogger;
 
@@ -184,7 +184,7 @@ class LevelDB extends BaseLevelProvider {
 			"Generator" => new IntTag("Generator", $generatorType),
 			"LastPlayed" => new LongTag("LastPlayed", time()),
 			"LevelName" => new StringTag("LevelName", $name),
-			"NetworkVersion" => new IntTag("NetworkVersion", ProtocolInfo::CURRENT_PROTOCOL),
+			"NetworkVersion" => new IntTag("NetworkVersion", Info::CURRENT_PROTOCOL),
 			//"Platform" => new IntTag("Platform", 2), //TODO: find out what the possible values are for
 			"RandomSeed" => new LongTag("RandomSeed", $seed),
 			"SpawnX" => new IntTag("SpawnX", 0),

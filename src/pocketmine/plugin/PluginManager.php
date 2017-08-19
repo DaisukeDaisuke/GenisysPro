@@ -46,7 +46,7 @@ use pocketmine\Server;
 /**
  * Manages all the plugins, Permissions and Permissibles
  */
-class PluginManager {
+class PluginManager{
 
 	/** @var Server */
 	private $server;
@@ -254,7 +254,7 @@ class PluginManager {
 								$version = array_map("intval", explode(".", $version));
 								$apiVersion = array_map("intval", explode(".", $this->server->getGeniApiVersion()));
 								//Completely different API version
-								if($version[0] > $apiVersion[0]){
+								/*if($version[0] > $apiVersion[0]){
 									continue;
 								}
 								//If the plugin uses new API
@@ -265,7 +265,7 @@ class PluginManager {
 								//If the plugin requires new API features, being backwards compatible
 								if($version[1] > $apiVersion[1]){
 									continue;
-								}
+								}*/
 
 								if($version[1] == $apiVersion[1] and $version[2] > $apiVersion[2]){
 									continue;
@@ -276,12 +276,12 @@ class PluginManager {
 							}
 
 							if($compatible === false){
-								if($this->server->loadIncompatibleAPI === true){
-									$this->server->getLogger()->debug("插件{$name}的API与服务器不符,但GenisysPro仍然加载了它");
-								}else{
-									$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.incompatibleAPI"]));
-									continue;
-								}
+							 if($this->server->loadIncompatibleAPI === true){
+			     $this->server->getLogger()->debug("插件{$name}的API与服务器不符,但GenisysPro仍然加载了它");
+			    }else{
+			     $this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.incompatibleAPI"]));
+								 continue;
+			    }
 							}
 
 							if($compatiblegeniapi === false){
@@ -554,6 +554,8 @@ class PluginManager {
 	 * @return Permissible[]
 	 */
 	public function getDefaultPermSubscriptions($op){
+		$subs = [];
+
 		if($op === true){
 			return $this->defSubsOp;
 			foreach($this->defSubsOp as $k => $perm){

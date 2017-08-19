@@ -26,7 +26,7 @@ namespace pocketmine;
 
 use pocketmine\event\block\ItemFrameDropItemEvent;
 use pocketmine\inventory\CraftingManager;
-use pocketmine\network\mcpe\protocol\LevelEventPacket;
+use pocketmine\network\protocol\LevelEventPacket;
 use pocketmine\block\Air;
 use pocketmine\block\Block;
 use pocketmine\block\Fire;
@@ -120,39 +120,39 @@ use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\LongTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
-use pocketmine\network\mcpe\protocol\AnimatePacket;
-use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
-use pocketmine\network\mcpe\protocol\BatchPacket;
-use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
-use pocketmine\network\mcpe\protocol\ChunkRadiusUpdatedPacket;
-use pocketmine\network\mcpe\protocol\ContainerSetContentPacket;
-use pocketmine\network\mcpe\protocol\DataPacket;
-use pocketmine\network\mcpe\protocol\DisconnectPacket;
-use pocketmine\network\mcpe\protocol\EntityEventPacket;
-use pocketmine\network\mcpe\protocol\FullChunkDataPacket;
-use pocketmine\network\mcpe\protocol\ProtocolInfo;
-use pocketmine\network\mcpe\protocol\InteractPacket;
-use pocketmine\network\mcpe\protocol\MovePlayerPacket;
-use pocketmine\network\mcpe\protocol\PlayerActionPacket;
-use pocketmine\network\mcpe\protocol\PlayStatusPacket;
-use pocketmine\network\mcpe\protocol\ResourcePackChunkDataPacket;
-use pocketmine\network\mcpe\protocol\ResourcePackClientResponsePacket;
-use pocketmine\network\mcpe\protocol\ResourcePackDataInfoPacket;
-use pocketmine\network\mcpe\protocol\ResourcePacksInfoPacket;
-use pocketmine\network\mcpe\protocol\ResourcePackStackPacket;
-use pocketmine\network\mcpe\protocol\RespawnPacket;
-use pocketmine\network\mcpe\protocol\SetEntityMotionPacket;
-use pocketmine\network\mcpe\protocol\SetPlayerGameTypePacket;
-use pocketmine\network\mcpe\protocol\SetSpawnPositionPacket;
-use pocketmine\network\mcpe\protocol\SetTimePacket;
-use pocketmine\network\mcpe\protocol\SetTitlePacket;
-use pocketmine\network\mcpe\protocol\StartGamePacket;
-use pocketmine\network\mcpe\protocol\TakeItemEntityPacket;
-use pocketmine\network\mcpe\protocol\TextPacket;
-use pocketmine\network\mcpe\protocol\UpdateAttributesPacket;
-use pocketmine\network\mcpe\protocol\UpdateBlockPacket;
-use pocketmine\network\mcpe\protocol\TransferPacket;
+use pocketmine\network\protocol\AdventureSettingsPacket;
+use pocketmine\network\protocol\AnimatePacket;
+use pocketmine\network\protocol\AvailableCommandsPacket;
+use pocketmine\network\protocol\BatchPacket;
+use pocketmine\network\protocol\ChangeDimensionPacket;
+use pocketmine\network\protocol\ChunkRadiusUpdatedPacket;
+use pocketmine\network\protocol\ContainerSetContentPacket;
+use pocketmine\network\protocol\DataPacket;
+use pocketmine\network\protocol\DisconnectPacket;
+use pocketmine\network\protocol\EntityEventPacket;
+use pocketmine\network\protocol\FullChunkDataPacket;
+use pocketmine\network\protocol\Info;
+use pocketmine\network\protocol\InteractPacket;
+use pocketmine\network\protocol\MovePlayerPacket;
+use pocketmine\network\protocol\PlayerActionPacket;
+use pocketmine\network\protocol\PlayStatusPacket;
+use pocketmine\network\protocol\ResourcePackChunkDataPacket;
+use pocketmine\network\protocol\ResourcePackClientResponsePacket;
+use pocketmine\network\protocol\ResourcePackDataInfoPacket;
+use pocketmine\network\protocol\ResourcePacksInfoPacket;
+use pocketmine\network\protocol\ResourcePackStackPacket;
+use pocketmine\network\protocol\RespawnPacket;
+use pocketmine\network\protocol\SetEntityMotionPacket;
+use pocketmine\network\protocol\SetPlayerGameTypePacket;
+use pocketmine\network\protocol\SetSpawnPositionPacket;
+use pocketmine\network\protocol\SetTimePacket;
+use pocketmine\network\protocol\SetTitlePacket;
+use pocketmine\network\protocol\StartGamePacket;
+use pocketmine\network\protocol\TakeItemEntityPacket;
+use pocketmine\network\protocol\TextPacket;
+use pocketmine\network\protocol\UpdateAttributesPacket;
+use pocketmine\network\protocol\UpdateBlockPacket;
+use pocketmine\network\protocol\TransferPacket;
 use pocketmine\network\SourceInterface;
 use pocketmine\permission\PermissibleBase;
 use pocketmine\permission\PermissionAttachment;
@@ -2377,9 +2377,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		}
 
 		switch($packet::NETWORK_ID){
-			case ProtocolInfo::PLAYER_INPUT_PACKET:
+			case Info::PLAYER_INPUT_PACKET:
 				break;
-			case ProtocolInfo::LOGIN_PACKET:
+			case Info::LOGIN_PACKET:
 				if($this->loggedIn){
 					break;
 				}
@@ -2405,8 +2405,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					break;
 				}
 
-				if(!in_array($packet->protocol, ProtocolInfo::ACCEPTED_PROTOCOLS)){
-					if($packet->protocol < ProtocolInfo::CURRENT_PROTOCOL){
+				if(!in_array($packet->protocol, Info::ACCEPTED_PROTOCOLS)){
+					if($packet->protocol < Info::CURRENT_PROTOCOL){
 						$message = "disconnectionScreen.outdatedClient";
 
 						$pk = new PlayStatusPacket();
@@ -2479,7 +2479,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}*/
 				break;
 
-			case ProtocolInfo::RESOURCE_PACK_CLIENT_RESPONSE_PACKET:
+			case Info::RESOURCE_PACK_CLIENT_RESPONSE_PACKET:
 				switch($packet->status){
 					case ResourcePackClientResponsePacket::STATUS_REFUSED:
 						//Client refused to download the required resource pack
@@ -2517,7 +2517,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 				break;
 
-			case ProtocolInfo::RESOURCE_PACK_CHUNK_REQUEST_PACKET:
+			case Info::RESOURCE_PACK_CHUNK_REQUEST_PACKET:
 				$manager = $this->server->getResourcePackManager();
 				$pack = $manager->getPackById($packet->packId);
 				if(!($pack instanceof ResourcePack)){
@@ -2533,7 +2533,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$this->dataPacket($pk);
 				break;
 
-			case ProtocolInfo::MOVE_PLAYER_PACKET:
+			case Info::MOVE_PLAYER_PACKET:
 				if($this->linkedEntity instanceof Entity){
 					$entity = $this->linkedEntity;
 					if($entity instanceof Boat){
@@ -2574,7 +2574,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 
 				break;
-			case ProtocolInfo::ADVENTURE_SETTINGS_PACKET:
+			case Info::ADVENTURE_SETTINGS_PACKET:
 				//TODO: player abilities, check for other changes
 				$isCheater = ($this->allowFlight === false && ($packet->flags >> 9) & 0x01 === 1) || (!$this->isSpectator() && ($packet->flags >> 7) & 0x01 === 1);
 				if(($packet->isFlying and !$this->allowFlight and !$this->server->getAllowFlight()) or $isCheater){
@@ -2590,7 +2590,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					break;
 				}
 				break;
-			case ProtocolInfo::MOB_EQUIPMENT_PACKET:
+			case Info::MOB_EQUIPMENT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -2604,7 +2604,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 				$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_ACTION, false);
 				break;
-			case ProtocolInfo::USE_ITEM_PACKET:
+			case Info::USE_ITEM_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -2769,7 +2769,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					$this->startAction = $this->server->getTick();
 				}
 				break;
-			case ProtocolInfo::PLAYER_ACTION_PACKET:
+			case Info::PLAYER_ACTION_PACKET:
 				if($this->spawned === false or (!$this->isAlive() and $packet->action !== PlayerActionPacket::ACTION_SPAWN_SAME_DIMENSION and $packet->action !== PlayerActionPacket::ACTION_SPAWN_OVERWORLD and $packet->action !== PlayerActionPacket::ACTION_SPAWN_NETHER)){
 					break;
 				}
@@ -3041,7 +3041,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_ACTION, false);
 				break;
 
-			case ProtocolInfo::REMOVE_BLOCK_PACKET:
+			case Info::REMOVE_BLOCK_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3077,11 +3077,11 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 				break;
 
-			case ProtocolInfo::MOB_ARMOR_EQUIPMENT_PACKET:
+			case Info::MOB_ARMOR_EQUIPMENT_PACKET:
 				//This packet is ignored. Armour changes are also sent by ContainerSetSlotPackets, and are handled there instead.
 				break;
 
-			case ProtocolInfo::INTERACT_PACKET:
+			case Info::INTERACT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3193,7 +3193,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 
 				break;
-			case ProtocolInfo::ANIMATE_PACKET:
+			case Info::ANIMATE_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3208,9 +3208,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$pk->action = $ev->getAnimationType();
 				$this->server->broadcastPacket($this->getViewers(), $pk);
 				break;
-			case ProtocolInfo::SET_HEALTH_PACKET: //Not used
+			case Info::SET_HEALTH_PACKET: //Not used
 				break;
-			case ProtocolInfo::ENTITY_EVENT_PACKET:
+			case Info::ENTITY_EVENT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3237,7 +3237,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						break;
 				}
 				break;
-			case ProtocolInfo::DROP_ITEM_PACKET:
+			case Info::DROP_ITEM_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3255,7 +3255,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 				$this->getTransactionQueue()->addTransaction(new DropItemTransaction($packet->item));
 				break;
-			case ProtocolInfo::COMMAND_STEP_PACKET:
+			case Info::COMMAND_STEP_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3276,7 +3276,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$this->server->dispatchCommand($ev->getPlayer(), substr($ev->getMessage(), 1));
 				Timings::$playerCommandTimer->stopTiming();
 				break;
-			case ProtocolInfo::TEXT_PACKET:
+			case Info::TEXT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3317,7 +3317,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					}
 				}
 				break;
-			case ProtocolInfo::CONTAINER_CLOSE_PACKET:
+			case Info::CONTAINER_CLOSE_PACKET:
 				if($this->spawned === false or $packet->windowid === 0){
 					break;
 				}
@@ -3339,7 +3339,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 				break;
 
-			case ProtocolInfo::CRAFTING_EVENT_PACKET:
+			case Info::CRAFTING_EVENT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3610,7 +3610,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 				break;
 
-			case ProtocolInfo::CONTAINER_SET_SLOT_PACKET:
+			case Info::CONTAINER_SET_SLOT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3652,7 +3652,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$this->getTransactionQueue()->addTransaction($transaction);
 
 				break;
-			case ProtocolInfo::BLOCK_ENTITY_DATA_PACKET:
+			case Info::BLOCK_ENTITY_DATA_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}
@@ -3673,17 +3673,17 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					}
 				}
 				break;
-			case ProtocolInfo::REQUEST_CHUNK_RADIUS_PACKET:
+			case Info::REQUEST_CHUNK_RADIUS_PACKET:
 				$this->setViewDistance($packet->radius);
 				break;
-			case ProtocolInfo::SET_PLAYER_GAME_TYPE_PACKET:
+			case Info::SET_PLAYER_GAME_TYPE_PACKET:
 				if($packet->gamemode !== $this->gamemode){
 					//Set this back to default. TODO: handle this properly
 					$this->sendGamemode();
 					$this->sendSettings();
 				}
 				break;
-			case ProtocolInfo::ITEM_FRAME_DROP_ITEM_PACKET:
+			case Info::ITEM_FRAME_DROP_ITEM_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
 				}

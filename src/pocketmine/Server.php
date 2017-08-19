@@ -78,12 +78,12 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\CompressBatchedTask;
 use pocketmine\network\Network;
-use pocketmine\network\mcpe\protocol\BatchPacket;
-use pocketmine\network\mcpe\protocol\DataPacket;
-use pocketmine\network\mcpe\protocol\ProtocolInfo;
-use pocketmine\network\mcpe\protocol\PlayerListPacket;
+use pocketmine\network\protocol\BatchPacket;
+use pocketmine\network\protocol\DataPacket;
+use pocketmine\network\protocol\Info;
+use pocketmine\network\protocol\PlayerListPacket;
 use pocketmine\network\query\QueryHandler;
-use pocketmine\network\mcpe\RakLibInterface;
+use pocketmine\network\RakLibInterface;
 use pocketmine\network\rcon\RCON;
 use pocketmine\network\upnp\UPnP;
 use pocketmine\permission\BanList;
@@ -315,6 +315,7 @@ class Server{
 	public $enderEnabled = true;
 	public $enderName = "ender";
 	public $enderLevel = null;
+	public $absorbWater = false;
 
 	/**
 	 * @return string
@@ -398,7 +399,7 @@ class Server{
 	 * @return string
 	 */
 	public function getVersion(){
-		$version = implode(",",ProtocolInfo::MINECRAFT_VERSION);
+		$version = implode(",",Info::MINECRAFT_VERSION);
 		return $version;
 	}
 
@@ -1520,7 +1521,7 @@ class Server{
 	}
 
 	public function about(){
-	 $version = implode(",",ProtocolInfo::MINECRAFT_VERSION);
+	 $version = implode(",",Info::MINECRAFT_VERSION);
 		$string = "
 
   _____            _               _____
@@ -1596,6 +1597,7 @@ class Server{
 
 		$this->allowInventoryCheats = $this->getAdvancedProperty("inventory.allow-cheats", false);
 		$this->folderpluginloader = $this->getAdvancedProperty("developer.folder-plugin-loader", true);
+		$this->absorbWater = $this->getAdvancedProperty("server.absorb-water", false);
 
 	}
 
