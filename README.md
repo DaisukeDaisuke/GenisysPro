@@ -1,6 +1,10 @@
 GenisysPro
 ====================
 
+このsrcはgenisys proのplugin apiを2.0仕様にしたものです。
+
+
+
 [![GenisysPro](http://i.imgur.com/R8gExma.jpg)](https://genisys.pro)
 
 | ![Download icon](https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_file_download_black_18px.svg) PHAR |  Travis CI | GitLab |
