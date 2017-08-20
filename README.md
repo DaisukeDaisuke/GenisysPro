@@ -1,8 +1,7 @@
 GenisysPro
 ====================
 
-このsrcはgenisys proのplugin apiを2.0仕様にしたものです。
-
+このsrcはgenisys proのplugin apiを2.0にしたものです。
 
 
 [![GenisysPro](http://i.imgur.com/R8gExma.jpg)](https://genisys.pro)
