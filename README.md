@@ -69,7 +69,7 @@ GenisysPro is free software. We appreciate your donation because it helps us mak
 TODO List
 -------------
 
-- [ ] Modify file locations to `/src/pocketmine/network/mcpe/` for extended plugin compatibility.
+- [x] Modify file locations to `/src/pocketmine/network/mcpe/` for extended plugin compatibility.
 - [ ] Discover all potential modifications that can enhance plugin backward compatibility.
 - [ ] Re-work how async workers perform tasks to prevent them from hanging and not performing other tasks.
 - [ ] Make modifications to handle Anvil worlds more efficiently to lower resource usage.
@@ -146,7 +146,7 @@ GenisysPro 是一个免费、开源的自由软件。我们欢迎并感谢您的
 即将支持
 -------------
 
-- [ ] 将与网络相关的文件移动到 `/src/pocketmine/network/mcpe/` 中，增强插件兼容性
+- [x] 将与网络相关的文件移动到 `/src/pocketmine/network/mcpe/` 中，增强插件兼容性
 - [ ] 查找所有可能会影响插件向下兼容能力的修改
 - [ ] 改进异步功能，防止单一任务长期占用线程导致其它任务无法执行
 - [ ] 提升 Anvil 地图格式的效率，降低资源占用
@@ -222,7 +222,7 @@ GenisysPro 是一款免費、開放源代碼的自由軟體。我們歡迎並感
 將要支援
 -------------
 
-- [ ] 將與網路相關的檔案移動到 `/src/pocketmine/network/mcpe/` 中，加强插件相容性
+- [x] 將與網路相關的檔案移動到 `/src/pocketmine/network/mcpe/` 中，加强插件相容性
 - [ ] 查找所有可能會影響插件向下相容能力的修改
 - [ ] 改進異步功能，防止單一任務長期占用執行緒導致其他任務無法執行
 - [ ] 提升 Anvil 地圖格式的效能，降低資源占用
@@ -298,7 +298,7 @@ GenisysProはフリーソフトウェアです。 GenisysProをより良くす�
 TODO(やること)リスト
 -------------
 
-- [ ] 強化されたプラグインの互換性のため、ファイルの場所を `/src/pocketmine/network/mcpe/`に変更
+- [x] 強化されたプラグインの互換性のため、ファイルの場所を `/src/pocketmine/network/mcpe/`に変更
 - [ ] プラグインの後位互換性を維持するために可能性のある変更を見つける
 - [ ] ハングアップしたり他のタスクを実行できなくなったりしてしまうのを防ぐために、非同期ワーカーの動作を再度調整する
 - [ ] Anvilのワールドをより効率的に処理するための修正を行い、リソースの使用量を削減できるようにする
@@ -456,7 +456,7 @@ GenisysPro еще предстоит пройти долгий путь. Мы р
 
 Помощь и Поддержка
 -------------
-[]Официальная документация, созданная Doxygen](https://genisyspro.github.io/docs/)
+[Официальная документация, созданная Doxygen](https://genisyspro.github.io/docs/)
 
 Другие Инструменты
 -------------
