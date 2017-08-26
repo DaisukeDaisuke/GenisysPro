@@ -320,10 +320,9 @@ class Server{
 	/**
 	 * @return string
 	 */
-	public function getName(){
-		return "GenisysPro";
+	public function getName() : string{
+        return "GenisysPro";
 	}
-	
 
 	/**
 	 * @return bool
