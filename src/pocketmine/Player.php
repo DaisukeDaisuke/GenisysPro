@@ -3263,7 +3263,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$commandText = $packet->command;
 				if($packet->inputJson !== null){
 					foreach($packet->inputJson as $arg){ //command ordering will be an issue
-						if(is_string($arg)) //anti bot
+						if(!is_object($arg)) //anti bot
 							$commandText .= " " . $arg;
 					}
 				}
@@ -3990,7 +3990,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	public final function close($message = "", $reason = "generic reason", $notify = true){
 		if($this->connected and !$this->closed){
 			if($notify and strlen((string) $reason) > 0){
-				$pk = new DisconnectPacket;
+				$pk = new DisconnectPacket();
 				$pk->hideDisconnectionScreen = null;
 				$pk->message = $reason;
 				$this->dataPacket($pk);
